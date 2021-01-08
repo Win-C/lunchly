@@ -56,6 +56,12 @@ class Customer {
     return new Customer(customer);
   }
 
+  /** return first and last names joined by a space */
+
+  fullName(){
+    return `${this.firstName} ${this.lastName}`;
+  }
+  
   /** get all reservations for this customer. */
 
   async getReservations() {
