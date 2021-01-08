@@ -14,7 +14,6 @@ class Customer {
     this.lastName = lastName;
     this.phone = phone;
     this.notes = notes;
-
   }
 
   /** find all customers. */
@@ -69,6 +68,28 @@ class Customer {
     return await Reservation.getReservationsForCustomer(this.id);
   }
 
+  /* get top 10 best customers with the most reservations */
+  static async getBestCustomers(){
+    const results = await db.query(
+      `SELECT c.id, 
+              c.first_name AS "firstName",
+              c.last_name  AS "lastName",
+              c.phone,
+              c.notes,
+        COUNT(r.customer_id) as reservations
+        FROM customers as c  
+        JOIN reservations as r  ON r.customer_id = c.id
+        GROUP BY c.id
+        ORDER BY reservations DESC
+        LIMIT 10`);
+    return results.rows.map(c => {
+      let customer = new Customer(c);
+      customer.reservationNum = c.reservations;
+      return customer;});
+  }
+
+
+
   /** save this customer. */
 
   async save() {
@@ -118,3 +139,6 @@ class Customer {
 }
 
 module.exports = Customer;
+
+
+

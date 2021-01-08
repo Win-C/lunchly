@@ -6,6 +6,7 @@
 
   <h1>{{ pageTitle }}</h1>
 
+  {% if pageTitle !== "Best Customers by Number of Reservations" %}
   <ul style="column-count: 4">
     {% for customer in customers %}
       <li>
@@ -15,5 +16,17 @@
       </li>
     {% endfor %}
   </ul>
+  {% else %}
+  <ol style="column-count: 1">
+    {% for customer in customers %}
+      <li>
+        <a href="/{{ customer.id }}/">
+          {{ customer.fullName() }}
+        </a>
+        <p> Number of Reservations : {{customer.reservationNum}}</p>
+      </li>
+    {% endfor %}
+  </ol>
+  {% endif %}
 
 {% endblock %}
