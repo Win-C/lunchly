@@ -40,7 +40,8 @@ class Reservation {
     return results.rows.map(row => new Reservation(row));
   }
 
-
+// registration in app, middleware for starting new transaction
+// transaction adds performance overhead and add safety 
   /* save this reservartion*/
   async save(){
     if (this.id === undefined) {
