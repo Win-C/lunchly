@@ -99,18 +99,20 @@ class Customer {
   }
 
 
-/* search for a list of customers that match user input
-todo: figure out what to select, return result
-*/
+/* search for a list of customers that match user input */
   static async search(searchInput){
     const results = await db.query(
-      `SELECT id, CONCAT(first_name,' ', last_name) AS full_name 
+      `SELECT id,
+              first_name AS "firstName",
+              last_name  AS "lastName",
+              phone,
+              notes
         FROM customers 
-        WHERE CONCAT(first_name,' ', last_name) ILIKE '%$1%';`,
-        [searchInput]
+        WHERE CONCAT(first_name,' ',last_name) ILIKE $1`,
+        [`%${searchInput}%`]
     );
-    return results.rows.map(c => new Customer(c));
 
+    return results.rows.map(c => new Customer(c));
   }
 
 }
