@@ -66,6 +66,7 @@ router.post("/:id/edit/", async function (req, res, next) {
 /** Handle adding a new reservation. */
 
 router.post("/:id/add-reservation/", async function (req, res, next) {
+  // insert middleware to check for customer id
   const customerId = req.params.id;
   const startAt = new Date(req.body.startAt);
   const numGuests = req.body.numGuests;
