@@ -18,7 +18,7 @@ router.get("/", async function (req, res, next) {
 });
 
 /** Handle searching for customer(s). */
-
+// change query term
 router.get("/search/", async function (req, res, next) {
   const { search } = req.query;
   const pageTitle = `Searched Results For ${search}:`;
